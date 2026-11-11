@@ -1,0 +1,7 @@
+metric,value,source
+cases,131,notebook_cell_34
+cases_without_kept_lesion,13,notebook_cell_34
+kept_lesions,838,notebook_cell_34
+ignored_tiny_components,33,notebook_cell_34
+small_lesions_under_10mm,391,notebook_cell_34
+patients_with_small_lesions,73,notebook_cell_34

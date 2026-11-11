@@ -1,0 +1,30 @@
+# Python and environments
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.venv/
+venv/
+.ipynb_checkpoints/
+.vscode/
+.idea/
+.DS_Store
+# Medical image data and derived caches
+/data/raw/**
+!/data/raw/.gitkeep
+/data/preprocessed/**
+!/data/preprocessed/.gitkeep
+*.nii
+*.nii.gz
+*.npy
+*.npz
+# Newly generated training runs (curated uploaded runs are in experiments/)
+/runs/**
+!/runs/.gitkeep
+# Curated model weights in experiments/ are versioned via Git LFS
+# Ignore ad hoc checkpoints outside experiments
+*.pt
+!experiments/**/*.pt
+*.pth
+*.ckpt
+/results/tables/lesion_census.csv

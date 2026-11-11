@@ -1,0 +1,6 @@
+architecture,sampler,folds,cases,lesions,small_lesions,mean_fp_per_scan,mean_tumor_dice,mean_liver_dice,small_sensitivity,all_sensitivity
+attn,lesion,2,53,289,127,5.584758,0.638646,0.924395,0.755906,0.858131
+attn,standard,2,53,289,127,5.004274,0.642363,0.930103,0.708661,0.844291
+unet,lesion,2,53,289,127,6.467236,0.623326,0.927924,0.740157,0.858131
+unet,standard,2,53,289,127,5.346866,0.632496,0.930960,0.740157,0.847751
+unet,tumor_voxel,2,53,289,127,6.933048,0.634498,0.919875,0.748031,0.871972

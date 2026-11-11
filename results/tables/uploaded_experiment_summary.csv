@@ -1,0 +1,11 @@
+experiment,architecture,sampler,fold,cases,lesions,small_lesions,small_sensitivity,all_sensitivity,false_positives_per_scan,tumor_dice,liver_dice,tta_views
+attn_lesion_fold0,attn,lesion,0,27,167,80,0.800000,0.868263,5.592593,0.696803,0.924130,8
+attn_lesion_fold1,attn,lesion,1,26,122,47,0.680851,0.844262,5.576923,0.580490,0.924660,8
+attn_standard_fold0,attn,standard,0,27,167,80,0.750000,0.862275,5.777778,0.679236,0.927743,8
+attn_standard_fold1,attn,standard,1,26,122,47,0.638298,0.819672,4.230769,0.605491,0.932463,8
+unet_lesion_fold0,unet,lesion,0,27,167,80,0.775000,0.868263,5.703704,0.684436,0.931729,8
+unet_lesion_fold1,unet,lesion,1,26,122,47,0.680851,0.844262,7.230769,0.562216,0.924119,8
+unet_standard_fold0,unet,standard,0,27,167,80,0.787500,0.856287,5.962963,0.680393,0.930385,8
+unet_standard_fold1,unet,standard,1,26,122,47,0.659574,0.836066,4.730769,0.584599,0.931536,8
+unet_tumor_voxel_fold0,unet,tumor_voxel,0,27,167,80,0.787500,0.880240,7.481481,0.683891,0.918298,8
+unet_tumor_voxel_fold1,unet,tumor_voxel,1,26,122,47,0.680851,0.860656,6.384615,0.585106,0.921452,8

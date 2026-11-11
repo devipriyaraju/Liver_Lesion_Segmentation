@@ -1,0 +1,13 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "liver-lesion-sampling"
+version = "0.1.0"
+description = "3D liver CT lesion segmentation with lesion-aware sampling and attention U-Net"
+requires-python = ">=3.10"
+dependencies = ["numpy>=1.24,<2.3", "pandas>=2.0,<3", "scipy>=1.10,<2", "matplotlib>=3.7,<4", "joblib>=1.3,<2", "tqdm>=4.65,<5", "nibabel>=5.1,<6", "torch>=2.3,<3", "monai>=1.4,<1.5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

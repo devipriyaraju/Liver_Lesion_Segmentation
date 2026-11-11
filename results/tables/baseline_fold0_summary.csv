@@ -1,0 +1,3 @@
+experiment,model,sampler,fold,patients,tumour_cases,liver_dice_mean,tumour_dice_mean,fp_per_scan_mean,source
+pilot,unet,standard,0,27,23,0.815,0.362,18.519,notebook_cell_22
+main,unet,standard,0,27,23,0.926,0.619,8.741,notebook_cell_24

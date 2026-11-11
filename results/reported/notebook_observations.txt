@@ -1,0 +1,33 @@
+Notebook cell 30 (recorded output):
+131 cases | {'0': 27, '1': 26, '2': 26, '3': 26, '4': 26}
+
+Notebook cell 34 (recorded output):
+cases: 131 | without any kept lesion: 13
+kept lesions: 838 | ignored tiny components: 33
+lesions per case: median 3, max 70
+
+small lesions (< 10.0 mm): 391 in 73 patients
+small lesions per fold:
+ fold
+0     80
+1     47
+2     84
+3    127
+4     53
+
+share of small lesions held by the 5 patients with most: 37%
+
+count by diameter bin (mm):
+diam_mm
+(0.0, 5.0]       61
+(5.0, 10.0]     330
+(10.0, 20.0]    252
+(20.0, 50.0]    160
+(50.0, inf]      35
+
+Notebook cell 36 (recorded output):
+unet 16.544 M parameters
+attn 16.549 M parameters
+
+Notebook cell 39 (recorded output):
+peak GPU memory 4.3 GB | ~2.2 it/s (GPU only) | 25000 iterations ~ 3.1 h per run before data-loading overhead
