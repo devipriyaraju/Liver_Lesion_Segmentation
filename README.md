@@ -36,10 +36,6 @@ Full-resolution metrics (including liver Dice) are in [`results/tables/uploaded_
 
 ![Training loss comparison](results/figures/training_loss_comparison.png)
 
-### Incomplete third-fold upload
-
-`experiments/unet_standard_fold2/` has only `last.pt` and `train_log.csv` (logged through iteration 2,050). The final model state, case-level metrics, lesion-level metrics, and FROC outputs for this fold were not provided, so this run is **excluded from all aggregate result tables and plots**.
-
 ### GitHub and Git LFS
 
 The trained weights are large, and `unet_standard_fold2/last.pt` is over GitHub's 100 MB normal Git file limit. **Install Git LFS before committing**:
@@ -181,10 +177,3 @@ The primary intended controlled comparison is **uniform lesion sampling vs tumou
 
 Cross-validation splits are stored in the generated `folds.json` to keep them stable across runs. Retain this file privately with your experiment records to reproduce exact assignments, the input notebook did not contain the complete split mapping. Preprocessed arrays are not included. Uploaded checkpoints for completed folds 0 and 1, plus an incomplete fold 2 checkpoint, are available under `experiments/` via Git LFS.
 
-## Notebook
-
-`notebooks/liver_lesion_experiments.ipynb` contains the original experiment workflow and recorded outputs with machine-specific paths replaced by placeholders. It preserves exploratory and revised code sections as an archival record, **the results presented in this README are main-only**. The modular Python package is the maintained command-line entry point. Notebook execution is not required to run the packaged pipeline.
-
-## Limitations
-
-This repository is an experimental research workflow, **not a clinically validated diagnostic tool**. Raw scans, complete patient split definitions, and folds 2–4 evaluation results have not been supplied. The evaluation CSVs were summarized and plotted, but model inference and training were not independently re-executed as part of packaging.
