@@ -1,6 +1,6 @@
 # Liver Lesion Segmentation with Lesion-Aware Sampling
 
-3D liver CT segmentation experiments comparing a conventional **3D U-Net** and an **attention-gated 3D U-Net**, with a focus on detecting small liver tumours. The main comparison evaluates whether sampling patches uniformly by lesion improves sensitivity relative to sampling by tumour voxel or ordinary foreground sampling.
+3D liver CT segmentation investigates the impact of patch sampling strategies on automated liver lesion segmentation in 3D CT scans. Using 3D U-Net and attention-gated 3D U-Net architectures, it compares standard sampling, tumour-voxel sampling, and lesion-uniform sampling, with particular emphasis on improving small-lesion detection. The study evaluates segmentation accuracy, lesion-level sensitivity, false positives per scan, and FROC performance using patient-level cross-validation.
 
 ## Overview
 
@@ -13,9 +13,33 @@ This project uses the **Medical Segmentation Decathlon Task03_Liver** dataset (C
 - **Evaluation:** a planned five-fold patient-level cross-validation, lesion detection sensitivity, tumour/liver Dice, false positives per scan, FROC, and paired patient bootstrap contrasts.
 - **Protocol:** main experiments use 25,000 training iterations per configuration/fold, with optional eight-way mirror test-time augmentation and secondary liver-masked analysis. Only main-experiment results are reported here.
 
+## Main finding: comparison against standard sampling
+
+**The central research question is whether lesion-uniform sampling improves detection of small liver tumours compared with standard training, and how it compares with tumour-voxel sampling.** The table below reports results from the actual trained-model evaluation CSVs across the two available folds. It is a model comparison, not a theoretical expectation. All configurations were evaluated on the same 53 scans containing 127 small lesions and 289 evaluable lesions overall.
+
+| Architecture | Sampling | Small-lesion sensitivity | All-lesion sensitivity | FP/scan | Tumour Dice |
+|---|---|---:|---:|---:|---:|
+| Attention U-Net | Standard (baseline) | 70.9% | 84.4% | 5.00 | 0.642 |
+| **Attention U-Net** | **Lesion-uniform (proposed)** | **75.6%** | **85.8%** | 5.58 | 0.639 |
+| 3D U-Net | Standard (baseline) | 74.0% | 84.8% | 5.35 | 0.632 |
+| 3D U-Net | Lesion-uniform (proposed) | 74.0% | 85.8% | 6.47 | 0.623 |
+| 3D U-Net | Tumour-voxel | 74.8% | **87.2%** | 6.93 | 0.634 |
+
+**Comparison with matching standard baselines:**
+
+- **Attention U-Net:** lesion-uniform sampling increased small-lesion sensitivity by **4.7 percentage points**, from 90/127 to 96/127 detected small lesions. Overall lesion sensitivity improved by **1.4 percentage points**. The trade-off was **0.58 more false positives per scan**, while tumour Dice decreased slightly from 0.642 to 0.639.
+- **3D U-Net:** lesion-uniform sampling gave **no net increase in pooled small-lesion sensitivity** (74.0% for both), although all-lesion sensitivity improved by **1.0 percentage point**. False positives increased by **1.12 per scan**, and tumour Dice fell from 0.632 to 0.623.
+- **3D U-Net with tumour-voxel sampling:** small-lesion sensitivity increased by **0.8 percentage points** over standard U-Net, and all-lesion sensitivity increased by **2.4 percentage points**, but false positives also rose by **1.59 per scan**.
+
+**Interpretation:** The strongest observed benefit of lesion-uniform sampling is in the attention-gated network, where it detected six additional small lesions across the evaluated folds compared with the matching standard baseline. It was **not uniformly superior** across architectures and metrics. In particular, the tumour-voxel configuration had the highest overall lesion sensitivity, and standard sampling generally produced fewer false positives. These are descriptive two-fold findings, not proof of statistical significance or completed five-fold results.
+
+![Sampling strategy comparison](results/figures/sampling_strategy_small_lesion_comparison.png)
+
+Detailed paired-baseline differences are in [`results/tables/sampling_vs_standard_comparison.csv`](results/tables/sampling_vs_standard_comparison.csv). Further FROC and per-fold figures appear below.
+
 ## Uploaded experiment results (folds 0 and 1)
 
-Ten complete experiment batches were supplied: U-Net with standard, lesion, and tumour-voxel sampling (two folds each), and attention U-Net with standard and lesion sampling (two folds each). Each has model weights, a training log, and case, lesion, and FROC CSVs for the original and liver-masked evaluations. **These values come from the uploaded result files and are not independently re-computed model predictions.**
+Ten complete experiment batches were supplied: U-Net with standard, lesion, and tumour-voxel sampling (two folds each), and attention U-Net with standard and lesion sampling (two folds each). Each has model weights, a training log, and case, lesion, and FROC CSVs for the original and liver-masked evaluations. **These are measured outputs from the trained models and their saved evaluation runs.** The repository summarizes those outputs without rerunning inference during packaging.
 
 The following metrics aggregate the available runs only. Sensitivities pool detected/total lesion counts, Dice scores and false positives are averaged across the two fold-level estimates. Tumour Dice is averaged over cases with non-missing values. Results are descriptive, not the planned full five-fold cross-validation estimate.
 
@@ -176,4 +200,5 @@ Use `python scripts/report.py --liver-mask` for the secondary analysis. Reportin
 The primary intended controlled comparison is **uniform lesion sampling vs tumour-voxel sampling** under the same nominal tumour-centred crop fraction. Standard sampling and attention-gated models provide additional controls. Tumour lesions are defined using 26-connected components after resampling, a lesion is detected when at least 10% of its voxels are covered by the thresholded tumour prediction. Lesion-level thresholds run from 0.05 to 0.95, with 0.5 as the primary operating point.
 
 Cross-validation splits are stored in the generated `folds.json` to keep them stable across runs. Retain this file privately with your experiment records to reproduce exact assignments, the input notebook did not contain the complete split mapping. Preprocessed arrays are not included. Uploaded checkpoints for completed folds 0 and 1, plus an incomplete fold 2 checkpoint, are available under `experiments/` via Git LFS.
+
 
